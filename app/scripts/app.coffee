@@ -47,3 +47,32 @@ app.run ($rootScope, $location, Auth) ->
   ###
   $rootScope.$on '$routeChangeStart', (event, next) ->
     $location.path('/login') if next.authenticate and not Auth.isLoggedIn()
+
+###
+ * KISSY初始化
+###
+KISSY.ready (S) ->
+  console.log 'Kissy Initialization'
+  KISSY.config 'combine',false
+
+###
+ * 上传文件插件示例
+###
+KISSY.use """
+  gallery/uploader/1.5/index,
+  gallery/uploader/1.5/themes/default/index,
+  gallery/uploader/1.5/themes/default/style.css
+  """, (S, Uploader, DefaultTheme) ->
+  KISSY.use """
+    gallery/uploader/1.5/plugins/auth/auth,
+    gallery/uploader/1.5/plugins/urlsInput/urlsInput,
+    gallery/uploader/1.5/plugins/proBars/proBars  
+    """, (S, Auth, UrlsInput, ProBars) ->
+    uploader = new Uploader '#J_UploaderBtn', {action: '/file/upload'}
+    uploader.theme(new DefaultTheme {queueTarget: '#J_UploaderQueue'})
+    uploader.plug(new Auth {max:3,maxSize:100}).plug(new UrlsInput {target: '#J_Urls'}).plug(new ProBars())
+
+
+
+
+

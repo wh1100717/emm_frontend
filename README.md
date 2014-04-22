@@ -1,7 +1,7 @@
 emm_frontend
 ============
 
-CoffeeScript + AngularJS + Express + Karma + Mongoose + Passport
+CoffeeScript + AngularJS + Express + Karma + Mongoose + Passport + KISSY
 
 ###Startup
 

@@ -5,6 +5,7 @@ users = require './controllers/api/users'
 session = require './controllers/api/session'
 middleware = require './middleware'
 index = require './controllers/index'
+file = require './controllers/file'
 
 ###
  * 应用路由配置
@@ -31,6 +32,12 @@ module.exports = (app) ->
   ###
   app.route('/api/home/awesomeThings')
     .get(home.awesomeThings)
+
+  ###
+   * 示例文件上传
+  ###
+  app.route('/file/upload')
+    .post(file.upload)
 
   ###
    * 所有未定义的api路由都应该返回404错误

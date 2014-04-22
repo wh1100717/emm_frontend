@@ -25,6 +25,10 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
+    <input type="file" class="g-u" id="J_UploaderBtn" value="上传文件" name="Filedata" accept="image/*"  >
+    <ul id="J_UploaderQueue"></ul>
+
+    <div id="button_container"></div>
     <!-- Add your site or application content here -->
     <div class="container" ng-view=""></div>
 
@@ -53,6 +57,7 @@
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/kissy/build/seed-min.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 

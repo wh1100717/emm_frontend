@@ -1,5 +1,5 @@
 'use strict'
-
+app = angular.module('emmFrontendApp')
 app.controller 'NavbarCtrl', ($scope, $location, Auth) ->
   $scope.menu = [{
       title: 'Home'
