@@ -70,7 +70,7 @@ KISSY.use """
     """, (S, Auth, UrlsInput, ProBars) ->
     uploader = new Uploader '#J_UploaderBtn', {action: '/file/upload'}
     uploader.theme(new DefaultTheme {queueTarget: '#J_UploaderQueue'})
-    uploader.plug(new Auth {max:3,maxSize:100}).plug(new UrlsInput {target: '#J_Urls'}).plug(new ProBars())
+    uploader.plug(new Auth {max:3,maxSize:10240}).plug(new UrlsInput {target: '#J_Urls'}).plug(new ProBars())
 
 
 

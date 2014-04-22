@@ -85,7 +85,7 @@ KISSY.use("gallery/uploader/1.5/index,\ngallery/uploader/1.5/themes/default/inde
     }));
     return uploader.plug(new Auth({
       max: 3,
-      maxSize: 100
+      maxSize: 10240
     })).plug(new UrlsInput({
       target: '#J_Urls'
     })).plug(new ProBars());
