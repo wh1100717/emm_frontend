@@ -26,6 +26,10 @@ app.config(function($routeProvider, $locationProvider, $httpProvider) {
     templateUrl: 'partials/settings',
     controller: 'SettingsCtrl',
     authenticate: true
+  }).when('/role', {
+    templateUrl: 'partials/role',
+    controller: 'SettingsCtrl',
+    authenticate: true
   }).otherwise({
     redirectTo: '/'
   });
@@ -48,14 +52,28 @@ app.config(function($routeProvider, $locationProvider, $httpProvider) {
   ]);
 });
 
-app.run(function($rootScope, $location, Auth) {
+app.run(function($rootScope, $location, $http, Auth) {
+  $rootScope.config = {
+    user: {},
+    company: {},
+    menus: {}
+  };
+  $http({
+    method: 'GET',
+    url: '/api/config'
+  }).success(function(data, status, headers, config) {
+    return $rootScope.config = data;
+  }).error(function(data, status, headers, config) {
+    return alert('/api/config error');
+  });
 
   /*
    * 监听route地址的变化，如果route地址需要权限验证，而又未登录，则跳转至login登陆页面
    */
   return $rootScope.$on('$routeChangeStart', function(event, next) {
     if (next.authenticate && !Auth.isLoggedIn()) {
-      return $location.path('/login');
+      $location.path('/login');
     }
+    return $rootScope.url = $location.url();
   });
 });

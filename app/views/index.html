@@ -69,70 +69,100 @@
         <div id="button_container"></div>
     -->
 
-    <div ng-include="'partials/layout/navbar'"></div>
+    <div class="navbar navbar-default" id="navbar" ng-controller="NavbarCtrl">
+        <script type="text/javascript">
+            try{ace.settings.check('navbar' , 'fixed')}catch(e){}
+        </script>
+        <div class="navbar-container" id="navbar-container">
+            <div class="navbar-header pull-left">
+                <a href="#" class="navbar-brand">
+                    <img ng-src="{{ config.company.logo }}" height="25"/>
+                    <small>
+                        <span>{{ config.company.name }}</span>
+                    </small>
+                </a><!-- /.brand -->
+            </div><!-- /.navbar-header -->
+            <div class="navbar-header pull-right">
+                <ul class="nav ace-nav">
+                    <li class="light-blue">
+                        <a data-toggle="dropdown" href="/settings" class="dropdown-toggle">
+                            <img class="nav-user-photo" ng-src="{{config.user.avatar}}" alt="{{config.user.name}}'s Photo" />
+                            <span class="user-info">
+                                <small>{{config.user.role}}</small>
+                                <span>{{config.user.name}}</span>
+                            </span>
+                        </a>
+                    <li>
+                        <button class="btn btn-app btn-inverse btn-xs" ng-click="logout()" style="height: 40px; width: 40px; border-radius: 25%; margin-left: 12px;">
+                            <i class="icon-off bigger-160"></i>
+                        </button>
+                    </li>
+                </ul><!-- /.ace-nav -->
+            </div><!-- /.navbar-header -->
+        </div><!-- /.container -->
+    </div>
 
+    <div class="main-container" id="main-container" ng-controller="MainCtrl">
+        <script type="text/javascript">
+            try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+        </script>
 
-        <div class="main-container" id="main-container" ng-controller="MainCtrl">
-            <script type="text/javascript">
-                try{ace.settings.check('main-container' , 'fixed')}catch(e){}
-            </script>
+        <div class="main-container-inner">
+            <a class="menu-toggler" id="menu-toggler" href="#">
+                <span class="menu-text"></span>
+            </a>
 
-            <div class="main-container-inner">
-                <a class="menu-toggler" id="menu-toggler" href="#">
-                    <span class="menu-text"></span>
-                </a>
-
-                <div class="sidebar" id="sidebar">
-                    <script type="text/javascript">
-                        try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
-                    </script>
-                    <ul class="nav nav-list">
-                        <li ng-repeat="menu in config.menus" >
-                            <a href="{{menu.href}}" ng-class="{'dropdown-toggle': menu.submenus}">
-                                <i class="{{menu.icon}}"></i>
-                                <span class="menu-text"> {{menu.name}} </span>
-                                <b ng-if="menu.submenus" class="arrow icon-angle-down"></b>
-                            </a>
-                            <ul class="submenu">
-                                <li ng-repeat="submenu in menu.submenus">
-                                    <a href="{{submenu.href}}">
-                                        <i class="icon-double-angle-right"></i>
-                                        {{submenu.name}}
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <div class="sidebar-collapse" id="sidebar-collapse">
-                        <i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
-                    </div>
-
-                    <script type="text/javascript">
-                        try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
-                    </script>
+            <div class="sidebar" id="sidebar">
+                <script type="text/javascript">
+                    try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
+                </script>
+                <ul class="nav nav-list">
+                    <li ng-repeat="menu in config.menus" >
+                        <a href="{{menu.href}}" ng-class="{'dropdown-toggle': menu.submenus}">
+                            <i class="{{menu.icon}}"></i>
+                            <span class="menu-text"> {{menu.name}} </span>
+                            <b ng-if="menu.submenus" class="arrow icon-angle-down"></b>
+                        </a>
+                        <ul class="submenu">
+                            <li ng-repeat="submenu in menu.submenus">
+                                <a href="{{submenu.href}}">
+                                    <i class="icon-double-angle-right"></i>
+                                    {{submenu.name}}
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="sidebar-collapse" id="sidebar-collapse">
+                    <i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
                 </div>
 
-                <div class="main-content">
-                    <div class="breadcrumbs" id="breadcrumbs">
-                        <script type="text/javascript">
-                            try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
-                        </script>
+                <script type="text/javascript">
+                    try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+                </script>
+            </div>
 
-                        <ul class="breadcrumb">
-                            <li>
-                                <i class="icon-home home-icon"></i>
-                                <a href="#">Home</a>
-                            </li>
-                            <li class="active">Gallery</li>
-                        </ul><!-- .breadcrumb -->
-                    </div>
+            <div class="main-content">
+                <div class="breadcrumbs" id="breadcrumbs" ng-controller="CrumbCtrl">
+                    <script type="text/javascript">
+                        try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+                    </script>
 
-                    <div class="page-content" ng-view></div>
-                </div><!-- /.main-content -->
+                    <ul class="breadcrumb">
+                        <li>
+                            <i class="icon-home home-icon"></i>
+                            <a href="#">Home</a>
+                        </li>
+                        <li class="active">{{crumb(url)}}</li>
+                    </ul><!-- .breadcrumb -->
+                </div>
 
-            </div><!-- /.main-container-inner -->
+                <div class="page-content" ng-view></div>
+            </div><!-- /.main-content -->
 
-        </div><!-- /.main-container -->
+        </div><!-- /.main-container-inner -->
+
+    </div><!-- /.main-container -->
 
 
     <!--[if lt IE 9]>

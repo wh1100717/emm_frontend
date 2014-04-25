@@ -68,41 +68,60 @@ exports.config = (req, res) ->
       logo: '/images/logo.png'
     }
     menus: [
-            {
-                "name": "设置",
-                "icon": "icon-laptop",
-                "href":"/settings"
-            },
-            {
-                "name": "应用",
-                "icon": "icon-list",
-                "href": "#",
-                "submenus": [
-                    {
-                        "href":"/app",
-                        "name": "应用列表",
-                        "id": "app_list"
-                    },
-                    {
-                        "href":"/blacklist",
-                        "name": "黑名单管理",
-                        "id": "blacklist_list"
-                    }
-                ]
-            },
-            {
-                "name": "内容",
-                "icon": "icon-folder-open-alt",
-                "href": "#",
-                "submenus": [
-                    {
-                        "href": "/push",
-                        "name": "推送消息",
-                        "id": "msg_list"
-                    }
-                ]
-            }
+      {
+        "name": "首页"
+        "icon": "icon-dashboard"
+        "href": "/"
+      },
+      {
+        "name": "设置"
+        "icon": "icon-laptop"
+        "href": "/settings"
+      },
+      {
+        "name": "用户"
+        "icon": "icon-user"
+        "href": "#"
+        "submenus": [
+          {
+            "href": "/role"
+            "name": "角色管理"
+          },
+          {
+            "href": "/user"
+            "name": "用户管理"
+          },
+          {
+            "href": "/source"
+            "name": "资源管理"
+          },
+          {
+            "href": "/custom"
+            "name": "客户管理"
+          },
+          {
+            "href": "/partner"
+            "name": "合作商管理"
+          },
+          {
+            "href": "/dept"
+            "name": "用户组管理"
+          }
         ]
+      },
+      {
+        "name": "内容"
+        "icon": "icon-folder-open-alt"
+        "href": "#"
+        "submenus": [
+          {
+            "href": "/push"
+            "name": "推送消息"
+            "id": "msg_list"
+          }
+        ]
+      }
+    ]
   }
   res.json config
 

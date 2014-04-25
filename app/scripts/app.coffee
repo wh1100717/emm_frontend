@@ -27,6 +27,11 @@ app.config ($routeProvider, $locationProvider ,$httpProvider) ->
       controller: 'SettingsCtrl'
       authenticate: true
       })
+    .when('/role',{
+      templateUrl: 'partials/role'
+      controller: 'SettingsCtrl'
+      authenticate: true
+      })
     .otherwise({
       redirectTo: '/'
       })
@@ -42,12 +47,27 @@ app.config ($routeProvider, $locationProvider ,$httpProvider) ->
         $q.reject(response)
     }
   ]
-app.run ($rootScope, $location, Auth) ->
+app.run ($rootScope, $location, $http, Auth) ->
+  $rootScope.config = {
+    user:{}
+    company:{}
+    menus:{}
+  }
+  $http({
+    method:'GET'
+    url: '/api/config'
+  }).success((data, status, headers, config) ->
+    $rootScope.config = data
+  ).error((data, status, headers, config) ->
+    alert '/api/config error'
+  )
+
   ###
    * 监听route地址的变化，如果route地址需要权限验证，而又未登录，则跳转至login登陆页面
   ###
   $rootScope.$on '$routeChangeStart', (event, next) ->
     $location.path('/login') if next.authenticate and not Auth.isLoggedIn()
+    $rootScope.url = $location.url()
 
 # ###
 #  * KISSY初始化
