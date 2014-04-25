@@ -47,27 +47,52 @@ app.config ($routeProvider, $locationProvider ,$httpProvider) ->
         $q.reject(response)
     }
   ]
+
 app.run ($rootScope, $location, $http, Auth) ->
-  $rootScope.config = {
-    user:{}
-    company:{}
-    menus:{}
-  }
-  $http({
-    method:'GET'
-    url: '/api/config'
-  }).success((data, status, headers, config) ->
-    $rootScope.config = data
-  ).error((data, status, headers, config) ->
-    alert '/api/config error'
-  )
+  if Auth.isLoggedIn()
+    $http({
+      method:'GET'
+      url: '/api/config'
+    }).success((data, status, headers, config) ->
+      $rootScope.config = data
+    ).error((data, status, headers, config) ->
+      alert '/api/config error'
+    )
+  else
+    $rootScope.config = {
+      user:{}
+      company:{}
+      menus:{}
+    }
 
   ###
    * 监听route地址的变化，如果route地址需要权限验证，而又未登录，则跳转至login登陆页面
   ###
   $rootScope.$on '$routeChangeStart', (event, next) ->
+    url = $location.url()
+    url = url.substr(0,url.indexOf('?')) if url.indexOf('?') > -1
+
+    $location.path('/') if Auth.isLoggedIn() and url is '/login'
+    $location.path('/') if Auth.isLoggedIn() and url is '/signup'
     $location.path('/login') if next.authenticate and not Auth.isLoggedIn()
-    $rootScope.url = $location.url()
+    $rootScope.url = url
+    if Auth.isLoggedIn() and not $rootScope.config.user.name
+      console.log 123
+      $http({
+        method:'GET'
+        url: '/api/config'
+      }).success((data, status, headers, config) ->
+        $rootScope.config = data
+      ).error((data, status, headers, config) ->
+        alert '/api/config error'
+      )      
+    if not Auth.isLoggedIn()
+      $rootScope.config = {
+        user:{}
+        company:{}
+        menus:{}
+      }
+    return
 
 # ###
 #  * KISSY初始化

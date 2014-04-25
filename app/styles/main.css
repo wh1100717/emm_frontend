@@ -1,3 +1,6 @@
 .pull-right{
 	padding-top: 2px;
 }
+.ace-nav>li {
+	border-left: 0px
+}

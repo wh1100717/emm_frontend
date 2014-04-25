@@ -53,27 +53,59 @@ app.config(function($routeProvider, $locationProvider, $httpProvider) {
 });
 
 app.run(function($rootScope, $location, $http, Auth) {
-  $rootScope.config = {
-    user: {},
-    company: {},
-    menus: {}
-  };
-  $http({
-    method: 'GET',
-    url: '/api/config'
-  }).success(function(data, status, headers, config) {
-    return $rootScope.config = data;
-  }).error(function(data, status, headers, config) {
-    return alert('/api/config error');
-  });
+  if (Auth.isLoggedIn()) {
+    $http({
+      method: 'GET',
+      url: '/api/config'
+    }).success(function(data, status, headers, config) {
+      return $rootScope.config = data;
+    }).error(function(data, status, headers, config) {
+      return alert('/api/config error');
+    });
+  } else {
+    $rootScope.config = {
+      user: {},
+      company: {},
+      menus: {}
+    };
+  }
 
   /*
    * 监听route地址的变化，如果route地址需要权限验证，而又未登录，则跳转至login登陆页面
    */
   return $rootScope.$on('$routeChangeStart', function(event, next) {
+    var url;
+    url = $location.url();
+    if (url.indexOf('?') > -1) {
+      url = url.substr(0, url.indexOf('?'));
+    }
+    if (Auth.isLoggedIn() && url === '/login') {
+      $location.path('/');
+    }
+    if (Auth.isLoggedIn() && url === '/signup') {
+      $location.path('/');
+    }
     if (next.authenticate && !Auth.isLoggedIn()) {
       $location.path('/login');
     }
-    return $rootScope.url = $location.url();
+    $rootScope.url = url;
+    if (Auth.isLoggedIn() && !$rootScope.config.user.name) {
+      console.log(123);
+      $http({
+        method: 'GET',
+        url: '/api/config'
+      }).success(function(data, status, headers, config) {
+        return $rootScope.config = data;
+      }).error(function(data, status, headers, config) {
+        return alert('/api/config error');
+      });
+    }
+    if (!Auth.isLoggedIn()) {
+      $rootScope.config = {
+        user: {},
+        company: {},
+        menus: {}
+      };
+    }
   });
 });
