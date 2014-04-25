@@ -15,6 +15,9 @@ module.exports = (app) ->
   ###
    * 服务端 API 路由
   ###
+  app.route('/api/session')
+    .post(session.login)
+    .delete(session.logout)
   app.route('/api/users')
     .post(users.create)
     .put(users.changePassword)
@@ -23,9 +26,8 @@ module.exports = (app) ->
     .get(users.me)
   app.route('/api/users/:id')
     .get(users.show)
-  app.route('/api/session')
-    .post(session.login)
-    .delete(session.logout)
+  app.route('/api/config')
+    .get(users.config)
 
   ###
    * 示例url
@@ -52,6 +54,8 @@ module.exports = (app) ->
   app.route('/partials/*')
     .get(index.partials)
 
+  app.route('/test')
+    .get((req, res)-> res.render 'test')
   ###
    * SPA主页路由
   ###

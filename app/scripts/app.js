@@ -14,7 +14,8 @@ app = angular.module('emmFrontendApp', ['ngCookies', 'ngResource', 'ngSanitize',
 app.config(function($routeProvider, $locationProvider, $httpProvider) {
   $routeProvider.when('/', {
     templateUrl: 'partials/main',
-    controller: 'MainCtrl'
+    controller: 'MainCtrl',
+    authenticate: true
   }).when('/login', {
     templateUrl: 'partials/login',
     controller: 'LoginCtrl'
@@ -56,38 +57,5 @@ app.run(function($rootScope, $location, Auth) {
     if (next.authenticate && !Auth.isLoggedIn()) {
       return $location.path('/login');
     }
-  });
-});
-
-
-/*
- * KISSY初始化
- */
-
-KISSY.ready(function(S) {
-  console.log('Kissy Initialization');
-  return KISSY.config('combine', false);
-});
-
-
-/*
- * 上传文件插件示例
- */
-
-KISSY.use("gallery/uploader/1.5/index,\ngallery/uploader/1.5/themes/default/index,\ngallery/uploader/1.5/themes/default/style.css", function(S, Uploader, DefaultTheme) {
-  return KISSY.use("gallery/uploader/1.5/plugins/auth/auth,\ngallery/uploader/1.5/plugins/urlsInput/urlsInput,\ngallery/uploader/1.5/plugins/proBars/proBars  ", function(S, Auth, UrlsInput, ProBars) {
-    var uploader;
-    uploader = new Uploader('#J_UploaderBtn', {
-      action: '/file/upload'
-    });
-    uploader.theme(new DefaultTheme({
-      queueTarget: '#J_UploaderQueue'
-    }));
-    return uploader.plug(new Auth({
-      max: 3,
-      maxSize: 10240
-    })).plug(new UrlsInput({
-      target: '#J_Urls'
-    })).plug(new ProBars());
   });
 });
