@@ -26,8 +26,10 @@ module.exports = (app) ->
     .get(users.me)
   app.route('/api/users/:id')
     .get(users.show)
-  app.route('/api/config')
+  app.route('/api/user/config')
     .get(users.config)
+  app.route('/api/user/roles')
+    .get(users.roles)
 
   ###
    * 示例url

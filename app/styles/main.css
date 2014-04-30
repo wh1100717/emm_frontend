@@ -2,5 +2,8 @@
 	padding-top: 2px;
 }
 .ace-nav>li {
-	border-left: 0px
+	border-left: 0px;
+}
+.hide {
+	display: none;
 }

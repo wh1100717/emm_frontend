@@ -2,7 +2,7 @@
 'use strict';
 var app;
 
-app = angular.module('emmFrontendApp', ['ngCookies', 'ngResource', 'ngSanitize', 'ngRoute']);
+app = angular.module('emmFrontendApp', ['ngCookies', 'ngResource', 'ngSanitize', 'ngRoute', 'datatables', 'ngStorage']);
 
 
 /*
@@ -52,23 +52,62 @@ app.config(function($routeProvider, $locationProvider, $httpProvider) {
   ]);
 });
 
-app.run(function($rootScope, $location, $http, Auth) {
+app.run(function($rootScope, $location, $http, Auth, $DTDefaultOptions, $sessionStorage) {
+
+  /*
+   * 默认左侧侧导航栏为打开状态
+   */
+  var oLanguage;
+  ace.settings.sidebar_collapsed(false);
+
+  /*
+   * 如果用户登陆，则发送/api/user/config请求来获取用户基础配置信息
+   * 如果用户没登陆，则将配置信息清空
+   */
   if (Auth.isLoggedIn()) {
-    $http({
-      method: 'GET',
-      url: '/api/config'
-    }).success(function(data, status, headers, config) {
-      return $rootScope.config = data;
-    }).error(function(data, status, headers, config) {
-      return alert('/api/config error');
-    });
+    if ($sessionStorage.config != null) {
+      $rootScope.config = $sessionStorage.config;
+    } else {
+      $http({
+        method: 'GET',
+        url: '/api/user/config'
+      }).success(function(data, status, headers, config) {
+        $sessionStorage.config = data;
+        return $rootScope.config = data;
+      }).error(function(data, status, headers, config) {
+        return alert('/api/user/config error');
+      });
+    }
   } else {
+    if ($sessionStorage.config != null) {
+      $sessionStorage.$reset();
+    }
     $rootScope.config = {
       user: {},
       company: {},
       menus: {}
     };
   }
+
+  /*
+   * 配置datatables
+   */
+  oLanguage = {
+    "sLengthMenu": "每页显示 _MENU_ 条记录",
+    "sInfo": "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
+    "sInfoEmpty": "没有数据",
+    "sInfoFiltered": "(从 _MAX_ 条数据中检索)",
+    "oPaginate": {
+      "sFirst": "首页",
+      "sPrevious": "前一页",
+      "sNext": "后一页",
+      "sLast": "尾页"
+    },
+    "sSearch": "搜索: ",
+    "sZeroRecords": "没有检索到数据",
+    "sProcessing": "<img src='./loading.gif' />"
+  };
+  $DTDefaultOptions.setLanguage(oLanguage);
 
   /*
    * 监听route地址的变化，如果route地址需要权限验证，而又未登录，则跳转至login登陆页面
@@ -89,18 +128,22 @@ app.run(function($rootScope, $location, $http, Auth) {
       $location.path('/login');
     }
     $rootScope.url = url;
-    if (Auth.isLoggedIn() && !$rootScope.config.user.name) {
+    if (Auth.isLoggedIn() && ($sessionStorage.config == null)) {
       console.log(123);
       $http({
         method: 'GET',
-        url: '/api/config'
+        url: '/api/user/config'
       }).success(function(data, status, headers, config) {
+        $sessionStorage.config = data;
         return $rootScope.config = data;
       }).error(function(data, status, headers, config) {
-        return alert('/api/config error');
+        return alert('/api/user/config error');
       });
     }
     if (!Auth.isLoggedIn()) {
+      if ($sessionStorage.config != null) {
+        $sessionStorage.$reset();
+      }
       $rootScope.config = {
         user: {},
         company: {},

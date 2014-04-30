@@ -125,3 +125,28 @@ exports.config = (req, res) ->
   }
   res.json config
 
+exports.roles = (req, res) ->
+  roles = [
+    {
+      role: "管理员"
+      create_time: "1987-07-17"
+      operation: "123"
+    },
+    {
+      role: "管理员"
+      create_time: "1987-07-17"
+      operation: "123"
+    },
+    {
+      role: "管理员"
+      create_time: "1987-07-17"
+      operation: "123"
+    }
+  ]
+  res.json roles
+
+
+
+
+
+

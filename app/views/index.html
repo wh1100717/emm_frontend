@@ -14,6 +14,10 @@
     <!-- build:css(app) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/datatables/media/css/jquery.dataTables.css" />
+    <link rel="stylesheet" href="bower_components/datatables-colvis/css/dataTables.colVis.css" />
+    <link rel="stylesheet" href="bower_components/datatables-colreorder/css/dataTables.colReorder.css" />
+    <link rel="stylesheet" href="bower_components/datatables-tabletools/css/dataTables.tableTools.css" />
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -71,7 +75,7 @@
         <div id="button_container"></div>
     -->
 
-    <div class="navbar navbar-default" id="navbar" ng-controller="NavbarCtrl">
+    <div class="navbar navbar-default" id="navbar" ng-controller="NavbarCtrl" ng-if="config.user.name">
         <script type="text/javascript">
             try{ace.settings.check('navbar' , 'fixed')}catch(e){}
         </script>
@@ -114,7 +118,7 @@
                 <span class="menu-text"></span>
             </a>
 
-            <div class="sidebar" id="sidebar">
+            <div ng-class="{'sidebar': config.user.name, 'hide': !config.user.name}" id="sidebar">
                 <script type="text/javascript">
                     try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
                 </script>
@@ -145,7 +149,7 @@
             </div>
 
             <div class="main-content">
-                <div class="breadcrumbs" id="breadcrumbs" ng-controller="CrumbCtrl">
+                <div class="breadcrumbs" id="breadcrumbs" ng-controller="CrumbCtrl" ng-if="config.user.name">
                     <script type="text/javascript">
                         try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
                     </script>
@@ -181,7 +185,14 @@
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/datatables/media/js/jquery.dataTables.js"></script>
+    <script src="bower_components/datatables-colvis/js/dataTables.colVis.js"></script>
+    <script src="bower_components/datatables-colreorder/js/dataTables.colReorder.js"></script>
+    <script src="bower_components/datatables-tabletools/js/dataTables.tableTools.js"></script>
+    <script src="bower_components/angular-datatables/dist/angular-datatables.js"></script>
+    <script src="bower_components/angular-datatables/dist/angular-datatables.min.js"></script>
     <script src="bower_components/kissy/build/seed-min.js"></script>
+    <script src="bower_components/ngstorage/ngStorage.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -191,6 +202,7 @@
         <script src="scripts/controllers/login.js"></script>
         <script src="scripts/controllers/signup.js"></script>
         <script src="scripts/controllers/settings.js"></script>
+        <script src="scripts/controllers/user.js"></script>
         <script src="scripts/services/auth.js"></script>
         <script src="scripts/services/session.js"></script>
         <script src="scripts/services/user.js"></script>

@@ -1,6 +1,4 @@
 'use strict'
-app = angular.module('emmFrontendApp')
-
 app.controller 'MainCtrl', ($scope, $rootScope, $http) ->
   return
 
