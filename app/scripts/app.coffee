@@ -140,8 +140,6 @@ app.run ($rootScope, $location, $http, Auth, $DTDefaultOptions, $sessionStorage)
     url = $location.url()
     url = url.substr(0,url.indexOf('?')) if url.indexOf('?') > -1
 
-    $location.path('/') if Auth.isLoggedIn() and url is '/login'
-    $location.path('/') if Auth.isLoggedIn() and url is '/signup'
     $location.path('/login') if next.authenticate and not Auth.isLoggedIn()
     $rootScope.url = url
     if Auth.isLoggedIn() and not $sessionStorage.config?

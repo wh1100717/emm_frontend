@@ -145,12 +145,6 @@ app.run(function($rootScope, $location, $http, Auth, $DTDefaultOptions, $session
     if (url.indexOf('?') > -1) {
       url = url.substr(0, url.indexOf('?'));
     }
-    if (Auth.isLoggedIn() && url === '/login') {
-      $location.path('/');
-    }
-    if (Auth.isLoggedIn() && url === '/signup') {
-      $location.path('/');
-    }
     if (next.authenticate && !Auth.isLoggedIn()) {
       $location.path('/login');
     }

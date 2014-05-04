@@ -39,3 +39,49 @@ app.controller('CrumbCtrl', function($scope, $rootScope, $location) {
 app.controller('SidebarCtrl', function($scope, $rootScope) {
   $scope.menus = $rootScope.config.menu;
 });
+
+app.controller('LoginCtrl', function($scope, $rootScope, Auth, $location) {
+  if (Auth.isLoggedIn()) {
+    $location.path('/');
+  }
+  $scope.user = {};
+  $scope.errors = {};
+  $scope.login = function(form) {
+    $scope.submitted = true;
+    if (form.$valid) {
+      return Auth.login({
+        email: $scope.user.email,
+        password: $scope.user.password
+      }).then(function() {
+        return $location.path('/');
+      })["catch"](function(err) {
+        return $scope.errors.other = err.data.message;
+      });
+    }
+  };
+});
+
+app.controller('SignupCtrl', function($scope, Auth, $location) {
+  if (Auth.isLoggedIn()) {
+    $location.path('/');
+  }
+  $scope.user = {};
+  $scope.errors = {};
+  $scope.register = function(form) {
+    $scope.submitted = true;
+    if (form.$valid) {
+      return Auth.createUser({
+        name: $scope.user.name,
+        email: $scope.user.email,
+        password: $scope.user.password
+      }).then(function() {
+        return $location.path('/');
+      })["catch"](function(err) {
+        return angular.forEach(err.data.errors, function(error, field) {
+          form[field].$setValidity('mongoose', false);
+          return $scope.errors[field] = error.message;
+        });
+      });
+    }
+  };
+});
