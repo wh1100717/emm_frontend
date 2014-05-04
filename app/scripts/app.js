@@ -27,12 +27,12 @@ app.config(function($routeProvider, $locationProvider, $httpProvider) {
     templateUrl: 'partials/settings',
     controller: 'SettingsCtrl',
     authenticate: true
-  }).when('/role', {
-    templateUrl: 'partials/role',
+  }).when('/customers/role', {
+    templateUrl: 'partials/customers/role',
     controller: 'SettingsCtrl',
     authenticate: true
-  }).when('/partner', {
-    templateUrl: 'partials/partner',
+  }).when('/customers/partner', {
+    templateUrl: 'partials/customers/partner',
     controller: 'PartnerCtrl',
     authenticate: true
   }).otherwise({

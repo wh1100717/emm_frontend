@@ -1,7 +1,7 @@
 'use strict'
 
 app.controller 'RoleCtrl', ($scope, DTOptionsBuilder, DTColumnBuilder) ->
-	$scope.dtOptions = DTOptionsBuilder.fromSource('/api/user/roles')
+	$scope.dtOptions = DTOptionsBuilder.fromSource('/api/customers/roles')
 		.withBootstrap()
 	$scope.dtColumns = [
 		DTColumnBuilder.newColumn('role').withTitle('角色'),
@@ -11,7 +11,7 @@ app.controller 'RoleCtrl', ($scope, DTOptionsBuilder, DTColumnBuilder) ->
 	return
 
 app.controller 'PartnerCtrl', ($scope, DTOptionsBuilder, DTColumnBuilder) ->
-	$scope.dtOptions = DTOptionsBuilder.fromSource('/api/user/roles')
+	$scope.dtOptions = DTOptionsBuilder.fromSource('/api/customers/partners')
 		.withBootstrap()
 	$scope.dtColumns = [
 		DTColumnBuilder.newColumn('role').withTitle('角色'),

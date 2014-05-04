@@ -84,27 +84,27 @@ exports.config = (req, res) ->
         "href": "#"
         "submenus": [
           {
-            "href": "/role"
+            "href": "/customers/role"
             "name": "角色管理"
           },
           {
-            "href": "/user"
+            "href": "/customers/user"
             "name": "用户管理"
           },
           {
-            "href": "/source"
+            "href": "/customers/source"
             "name": "资源管理"
           },
           {
-            "href": "/custom"
+            "href": "/customers/custom"
             "name": "客户管理"
           },
           {
-            "href": "/partner"
+            "href": "/customers/partner"
             "name": "合作商管理"
           },
           {
-            "href": "/dept"
+            "href": "/customers/dept"
             "name": "用户组管理"
           }
         ]
@@ -125,25 +125,6 @@ exports.config = (req, res) ->
   }
   res.json config
 
-exports.roles = (req, res) ->
-  roles = [
-    {
-      role: "管理员"
-      create_time: "1987-07-17"
-      operation: "123"
-    },
-    {
-      role: "管理员"
-      create_time: "1987-07-17"
-      operation: "123"
-    },
-    {
-      role: "管理员"
-      create_time: "1987-07-17"
-      operation: "123"
-    }
-  ]
-  res.json roles
 
 
 
