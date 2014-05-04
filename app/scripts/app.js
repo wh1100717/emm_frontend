@@ -6,17 +6,28 @@ app = angular.module('emmFrontendApp', ['ngCookies', 'ngResource', 'ngSanitize',
 
 
 /*
- * $routProvider: 用于配置route路由
- * $locationProvider: 用于配置angularJS中的deep link路径的存储格式。 包含hashPrefix和html5Mode属性
- * $$httpProvider: 用于进行$http的配置
+ * Customer Route
  */
 
-app.config(function($routeProvider, $locationProvider, $httpProvider) {
-  $routeProvider.when('/', {
-    templateUrl: 'partials/main',
-    controller: 'MainCtrl',
+app.config(function($routeProvider) {
+  return $routeProvider.when('/customers/role', {
+    templateUrl: 'partials/customers/role',
+    controller: 'SettingsCtrl',
     authenticate: true
-  }).when('/login', {
+  }).when('/customers/partner', {
+    templateUrl: 'partials/customers/partner',
+    controller: 'PartnerCtrl',
+    authenticate: true
+  });
+});
+
+
+/*
+ * Base Route
+ */
+
+app.config(function($routeProvider) {
+  return $routeProvider.when('/login', {
     templateUrl: 'partials/login',
     controller: 'LoginCtrl',
     authenticate: false
@@ -27,17 +38,23 @@ app.config(function($routeProvider, $locationProvider, $httpProvider) {
     templateUrl: 'partials/settings',
     controller: 'SettingsCtrl',
     authenticate: true
-  }).when('/customers/role', {
-    templateUrl: 'partials/customers/role',
-    controller: 'SettingsCtrl',
-    authenticate: true
-  }).when('/customers/partner', {
-    templateUrl: 'partials/customers/partner',
-    controller: 'PartnerCtrl',
+  }).when('/', {
+    templateUrl: 'partials/main',
+    controller: 'MainCtrl',
     authenticate: true
   }).otherwise({
     redirectTo: '/'
   });
+});
+
+
+/*
+ * Other Configuration
+ * $locationProvider: 用于配置angularJS中的deep link路径的存储格式。 包含hashPrefix和html5Mode属性
+ * $httpProvider: 用于进行$http的配置
+ */
+
+app.config(function($locationProvider, $httpProvider) {
   $locationProvider.html5Mode(true);
 
   /*
@@ -56,6 +73,11 @@ app.config(function($routeProvider, $locationProvider, $httpProvider) {
     }
   ]);
 });
+
+
+/*
+ * Initialization
+ */
 
 app.run(function($rootScope, $location, $http, Auth, $DTDefaultOptions, $sessionStorage) {
 

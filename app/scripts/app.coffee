@@ -9,18 +9,29 @@ app = angular.module 'emmFrontendApp', [
   'ngStorage'
   ]
 
+############################Route Module#################################
+
 ###
- * $routProvider: 用于配置route路由
- * $locationProvider: 用于配置angularJS中的deep link路径的存储格式。 包含hashPrefix和html5Mode属性
- * $$httpProvider: 用于进行$http的配置
+ * Customer Route
 ###
-app.config ($routeProvider, $locationProvider ,$httpProvider) ->
+app.config ($routeProvider) ->
   $routeProvider
-    .when('/',{
-      templateUrl: 'partials/main'
-      controller: 'MainCtrl',
+    .when('/customers/role',{
+      templateUrl: 'partials/customers/role'
+      controller: 'SettingsCtrl'
       authenticate: true
       })
+    .when('/customers/partner',{
+      templateUrl: 'partials/customers/partner'
+      controller: 'PartnerCtrl'
+      authenticate: true
+      })  
+
+###
+ * Base Route
+###
+app.config ($routeProvider) ->
+  $routeProvider
     .when('/login',{
       templateUrl: 'partials/login'
       controller: 'LoginCtrl'
@@ -35,19 +46,24 @@ app.config ($routeProvider, $locationProvider ,$httpProvider) ->
       controller: 'SettingsCtrl'
       authenticate: true
       })
-    .when('/customers/role',{
-      templateUrl: 'partials/customers/role'
-      controller: 'SettingsCtrl'
-      authenticate: true
-      })
-    .when('/customers/partner',{
-      templateUrl: 'partials/customers/partner'
-      controller: 'PartnerCtrl'
+    .when('/',{
+      templateUrl: 'partials/main'
+      controller: 'MainCtrl',
       authenticate: true
       })
     .otherwise({
       redirectTo: '/'
       })
+
+############################Route Module Done#################################
+
+###
+ * Other Configuration
+ * $locationProvider: 用于配置angularJS中的deep link路径的存储格式。 包含hashPrefix和html5Mode属性
+ * $httpProvider: 用于进行$http的配置
+###
+app.config ($locationProvider ,$httpProvider) ->
+
   $locationProvider.html5Mode true
 
   ###
@@ -60,6 +76,10 @@ app.config ($routeProvider, $locationProvider ,$httpProvider) ->
         $q.reject(response)
     }
   ]
+
+###
+ * Initialization
+###
 
 app.run ($rootScope, $location, $http, Auth, $DTDefaultOptions, $sessionStorage) ->
 
