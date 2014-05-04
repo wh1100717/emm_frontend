@@ -18,7 +18,8 @@ app.config(function($routeProvider, $locationProvider, $httpProvider) {
     authenticate: true
   }).when('/login', {
     templateUrl: 'partials/login',
-    controller: 'LoginCtrl'
+    controller: 'LoginCtrl',
+    authenticate: false
   }).when('/signup', {
     templateUrl: 'partials/signup',
     controller: 'SignupCtrl'
@@ -29,6 +30,10 @@ app.config(function($routeProvider, $locationProvider, $httpProvider) {
   }).when('/role', {
     templateUrl: 'partials/role',
     controller: 'SettingsCtrl',
+    authenticate: true
+  }).when('/partner', {
+    templateUrl: 'partials/partner',
+    controller: 'PartnerCtrl',
     authenticate: true
   }).otherwise({
     redirectTo: '/'

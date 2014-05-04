@@ -24,6 +24,7 @@ app.config ($routeProvider, $locationProvider ,$httpProvider) ->
     .when('/login',{
       templateUrl: 'partials/login'
       controller: 'LoginCtrl'
+      authenticate: false
       })
     .when('/signup',{
       templateUrl: 'partials/signup'
@@ -37,6 +38,11 @@ app.config ($routeProvider, $locationProvider ,$httpProvider) ->
     .when('/role',{
       templateUrl: 'partials/role'
       controller: 'SettingsCtrl'
+      authenticate: true
+      })
+    .when('/partner',{
+      templateUrl: 'partials/partner'
+      controller: 'PartnerCtrl'
       authenticate: true
       })
     .otherwise({
