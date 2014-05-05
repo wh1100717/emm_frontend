@@ -20,7 +20,7 @@ CoffeeScript + AngularJS + Express + Karma + Mongoose + Passport + KISSY + ACE
 *   执行`npm install`安装所需要的工具文件(鉴于国内网络，建议使用代理，具体执行方式为打开goAgent并执行`npm install --proxy http://127.0.0.1:8087`)
 *   执行`bower install`安装前端所需库
 
-### Unser Mac
+### Under Mac
 
 *   安装[NodeJS](http://nodejs.org/)
 *   安装[MongoDB](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-os-x/)
