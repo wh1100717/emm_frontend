@@ -7,5 +7,14 @@ app.controller('RoleCtrl', function($scope, DTOptionsBuilder, DTColumnBuilder) {
 
 app.controller('PartnerCtrl', function($scope, DTOptionsBuilder, DTColumnBuilder) {
   $scope.dtOptions = DTOptionsBuilder.fromSource('/api/customers/partners').withBootstrap();
-  $scope.dtColumns = [DTColumnBuilder.newColumn('role').withTitle('角色'), DTColumnBuilder.newColumn('create_time').withTitle('创建时间'), DTColumnBuilder.newColumn('operation').withTitle('操作')];
+  $scope.dtColumns = [
+    DTColumnBuilder.newColumn('name').withTitle('合作商名').renderWith(function(data) {
+      return "<a href='www.baidu.com'>" + data + "</a>";
+    }), DTColumnBuilder.newColumn('email').withTitle('邮箱'), DTColumnBuilder.newColumn('telephone').withTitle('联系电话'), DTColumnBuilder.newColumn('address').withTitle('地址'), DTColumnBuilder.newColumn('identifier').withTitle('标识'), DTColumnBuilder.newColumn('products').withTitle('订购产品').renderWith(function(data) {
+      return data.join(' ');
+    }), DTColumnBuilder.newColumn('createTime').withTitle('创建时间'), DTColumnBuilder.newColumn('id').withTitle('操作').renderWith(function(data, type, full) {
+      console.log(data);
+      return data + '11111';
+    })
+  ];
 });
