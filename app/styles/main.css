@@ -7,3 +7,6 @@
 .hide {
 	display: none;
 }
+.row .btn-minier{
+	line-height: 14px;
+}
