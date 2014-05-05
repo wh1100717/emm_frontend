@@ -24,7 +24,11 @@ exports.partners = (req, res) ->
 	console.log 123
 	partners = [
 		{
-			"products": ['MDM','MAM']
+			"products": {
+				'mdm':true
+				'mam':true
+				'mcm':false
+			}
 			"updateTime": null,
 			"email": "",
 			"city": null,
@@ -39,7 +43,11 @@ exports.partners = (req, res) ->
 			"country": null
 		}
 		{
-			"products": ['MCM','MAM']
+			"products": {
+				'mdm':false
+				'mam':true
+				'mcm':false
+			}
 			"updateTime": null,
 			"email": "",
 			"city": null,
@@ -54,7 +62,11 @@ exports.partners = (req, res) ->
 			"country": null
 		}
 		{
-			"products": ['MCM','MDM']
+			"products": {
+				'mdm':false
+				'mam':true
+				'mcm':true
+			}
 			"updateTime": null,
 			"email": "",
 			"city": null,

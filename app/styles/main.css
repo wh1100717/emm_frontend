@@ -10,3 +10,6 @@
 .row .btn-minier{
 	line-height: 14px;
 }
+.modal-footer {
+	clear: both;
+}
