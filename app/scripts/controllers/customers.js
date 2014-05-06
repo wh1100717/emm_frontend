@@ -6,26 +6,27 @@ app.controller('RoleCtrl', function($scope, DTOptionsBuilder, DTColumnBuilder) {
 });
 
 app.controller('PartnerCtrl', function($scope, $compile, DTOptionsBuilder, DTColumnBuilder) {
-  $scope.partner = {
-    name: '',
-    telephone: '',
-    email: '',
-    address: '',
-    identifier: '',
-    products: ''
-  };
+  $scope.partner = {};
+  $scope.new_partner = {};
   $scope.dtOptions = DTOptionsBuilder.fromSource('/api/customers/partners').withOption('fnDrawCallback', function() {
     return $compile($('.blue'))($scope);
   }).withBootstrap();
-  $scope.partner_form_init = function(partner) {
+  $scope.add_partner_modal_init = function() {
+    console.log('add_partner_form_init');
+    $scope.new_partner = {};
+    $("#add-partner-modal input[name='partner.products.mdm']").attr('checked', false);
+    $("#add-partner-modal input[name='partner.products.mam']").attr('checked', false);
+    $("#add-partner-modal input[name='partner.products.mcm']").attr('checked', false);
+  };
+  $scope.edit_partner_modal_init = function(partner) {
     $scope.partner = partner;
-    $("input[name='partner.products.mdm']").attr('checked', partner.products.mdm);
-    $("input[name='partner.products.mam']").attr('checked', partner.products.mam);
-    $("input[name='partner.products.mcm']").attr('checked', partner.products.mcm);
+    $("#edit-partner-modal input[name='partner.products.mdm']").attr('checked', partner.products.mdm);
+    $("#edit-partner-modal input[name='partner.products.mam']").attr('checked', partner.products.mam);
+    $("#edit-partner-modal input[name='partner.products.mcm']").attr('checked', partner.products.mcm);
   };
   $scope.dtColumns = [
     DTColumnBuilder.newColumn('name').withTitle('合作商名').renderWith(function(data, type, full) {
-      return "<a href='' role='button' class='blue' data-toggle='modal' \n	data-target='#partner-form' \n	ng-click='partner_form_init(" + (JSON.stringify(full)) + ")'>\n " + data + " \n</a>";
+      return "<a href='' role='button' class='blue' data-toggle='modal' \n	data-target='#edit-partner-modal' \n	ng-click='edit_partner_modal_init(" + (JSON.stringify(full)) + ")'>\n " + data + " \n</a>";
     }), DTColumnBuilder.newColumn('email').withTitle('邮箱'), DTColumnBuilder.newColumn('telephone').withTitle('联系电话'), DTColumnBuilder.newColumn('address').withTitle('地址'), DTColumnBuilder.newColumn('identifier').withTitle('标识'), DTColumnBuilder.newColumn('products').withTitle('订购产品').renderWith(function(data) {
       var html;
       html = "";
