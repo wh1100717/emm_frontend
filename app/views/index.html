@@ -123,14 +123,14 @@
                     try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
                 </script>
                 <ul class="nav nav-list">
-                    <li ng-repeat="menu in config.menus" >
+                    <li ng-repeat="menu in config.menus" ng-class="{'active': menu.href == url}">
                         <a href="{{menu.href}}" ng-class="{'dropdown-toggle': menu.submenus}">
                             <i class="{{menu.icon}}"></i>
                             <span class="menu-text"> {{menu.name}} </span>
                             <b ng-if="menu.submenus" class="arrow icon-angle-down"></b>
                         </a>
                         <ul class="submenu">
-                            <li ng-repeat="submenu in menu.submenus">
+                            <li ng-repeat="submenu in menu.submenus" ng-class="{'active': submenu.href == url}">
                                 <a href="{{submenu.href}}">
                                     <i class="icon-double-angle-right"></i>
                                     {{submenu.name}}
