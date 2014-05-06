@@ -29,26 +29,10 @@ app.controller 'PartnerCtrl', ($scope, $compile, DTOptionsBuilder, DTColumnBuild
 
 
 	$scope.partner_form_init = (partner) ->
-		if partner?
-			$('.partner-form-title').html('信息修改')
-			$("input[name='partner.name']").attr('value',partner.name)
-			$("input[name='partner.telephone']").attr('value',partner.telephone)
-			$("input[name='partner.email']").attr('value',partner.email)
-			$("input[name='partner.address']").attr('value',partner.address)
-			$("input[name='partner.identifier']").attr('value',partner.identifier)
-			$("input[name='partner.products.mdm']").attr('checked',partner.products.mdm)
-			$("input[name='partner.products.mam']").attr('checked',partner.products.mam)
-			$("input[name='partner.products.mcm']").attr('checked',partner.products.mcm)
-		else
-			$('.partner-form-title').html('添加合作商')
-			$("input[name='partner.name']").attr('value','')
-			$("input[name='partner.telephone']").attr('value','')
-			$("input[name='partner.email']").attr('value','')
-			$("input[name='partner.address']").attr('value','')
-			$("input[name='partner.identifier']").attr('value','')
-			$("input[name='partner.products.mdm']").attr('checked',false)
-			$("input[name='partner.products.mam']").attr('checked',false)
-			$("input[name='partner.products.mcm']").attr('checked',false)			
+		$scope.partner = partner
+		$("input[name='partner.products.mdm']").attr('checked',partner.products.mdm)
+		$("input[name='partner.products.mam']").attr('checked',partner.products.mam)
+		$("input[name='partner.products.mcm']").attr('checked',partner.products.mcm)
 		return
 
 	$scope.dtColumns = [
