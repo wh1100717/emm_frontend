@@ -1,7 +1,7 @@
 <div class="row" ng-controller="PartnerCtrl">
 	<div class="col-xs-12">
 		<div class="code" id="test-table">
-			<button ng-click="add_partner_modal_init()" data-toggle='modal' 
+			<button onclick="partner_modal.add_init()" data-toggle='modal' 
 				data-target='#add-partner-modal' class="btn btn-info" style="float: right;margin: 0 10px 10px 0;">
 				<i class="icon-cloud-upload bigger-100"></i>添加合作商
 			</button>
@@ -25,7 +25,7 @@
 								<label class="col-sm-3 control-label no-padding-right"> 合作商名 </label>
 
 								<div class="col-sm-9">
-									<input type="text" placeholder="添加提示信息" name="partner.name" class="col-xs-10 col-sm-5" ng-model='partner.name'>
+									<input type="text" placeholder="添加提示信息" name="partner.name" class="col-xs-10 col-sm-5">
 								</div>
 							</div>
 							<div class="space-4"></div>
@@ -34,7 +34,7 @@
 								<label class="col-sm-3 control-label no-padding-right"> 电话 </label>
 
 								<div class="col-sm-9">
-									<input type="text" placeholder="添加提示信息" name="partner.telephone" class="col-xs-10 col-sm-5" ng-model='partner.telephone'>
+									<input type="text" placeholder="添加提示信息" name="partner.telephone" class="col-xs-10 col-sm-5">
 								</div>
 							</div>
 							<div class="space-4"></div>
@@ -43,7 +43,7 @@
 								<label class="col-sm-3 control-label no-padding-right"> 邮箱 </label>
 
 								<div class="col-sm-9">
-									<input type="text" placeholder="添加提示信息" name="partner.email" class="col-xs-10 col-sm-5" ng-model='partner.email'>
+									<input type="text" placeholder="添加提示信息" name="partner.email" class="col-xs-10 col-sm-5">
 								</div>
 							</div>
 							<div class="space-4"></div>
@@ -52,7 +52,7 @@
 								<label class="col-sm-3 control-label no-padding-right"> 地址 </label>
 
 								<div class="col-sm-9">
-									<input type="text" placeholder="添加提示信息" name="partner.address" class="col-xs-10 col-sm-5" ng-model='partner.address'>
+									<input type="text" placeholder="添加提示信息" name="partner.address" class="col-xs-10 col-sm-5">
 								</div>
 							</div>
 							<div class="space-4"></div>
@@ -61,7 +61,7 @@
 								<label class="col-sm-3 control-label no-padding-right"> 标识 </label>
 
 								<div class="col-sm-9">
-									<input type="text" placeholder="添加提示信息" name="partner.identifier" class="col-xs-10 col-sm-5" ng-model='partner.identifier'>
+									<input type="text" placeholder="添加提示信息" name="partner.identifier" class="col-xs-10 col-sm-5">
 								</div>
 							</div>
 							<div class="space-4"></div>
@@ -71,15 +71,15 @@
 
 								<div class="col-sm-9">
 									<label style="padding-top:2px;">
-										<input name="partner.products.mdm" type="checkbox" class="ace" ng-model="partner.products.mdm">
+										<input name="partner.products.mdm" type="checkbox" class="ace">
 										<span class="lbl"> MDM </span>
 									</label>
 									<label style="padding-top:2px;">
-										<input name="partner.products.mam" type="checkbox" class="ace" ng-model="partner.products.mam">
+										<input name="partner.products.mam" type="checkbox" class="ace">
 										<span class="lbl"> MAM </span>
 									</label>
 									<label style="padding-top:2px;">
-										<input name="partner.products.mcm" type="checkbox" class="ace" ng-model="partner.products.mcm">
+										<input name="partner.products.mcm" type="checkbox" class="ace">
 										<span class="lbl"> MCM </span>
 									</label>
 								</div>
@@ -131,7 +131,7 @@
 											<label class="col-sm-3 control-label no-padding-right"> 合作商名 </label>
 
 											<div class="col-sm-9">
-												<input type="text" placeholder="必填项" name="partner.name" class="col-xs-10 col-sm-8" ng-model="new_partner.name">
+												<input type="text" placeholder="必填项" name="partner.name" class="col-xs-10 col-sm-8">
 											</div>
 										</div>
 										<div class="space-4"></div>
@@ -140,7 +140,7 @@
 											<label class="col-sm-3 control-label no-padding-right"> 电话 </label>
 
 											<div class="col-sm-9">
-												<input type="text" placeholder="添加提示信息" name="partner.telephone" class="col-xs-10 col-sm-8" ng-model="new_partner.telephone">
+												<input type="text" placeholder="添加提示信息" name="partner.telephone" class="col-xs-10 col-sm-8">
 											</div>
 										</div>
 										<div class="space-4"></div>
@@ -149,7 +149,7 @@
 											<label class="col-sm-3 control-label no-padding-right"> 邮箱 </label>
 
 											<div class="col-sm-9">
-												<input type="text" placeholder="添加提示信息" name="partner.email" class="col-xs-10 col-sm-8" ng-model="new_partner.email">
+												<input type="text" placeholder="添加提示信息" name="partner.email" class="col-xs-10 col-sm-8">
 											</div>
 										</div>
 										<div class="space-4"></div>
@@ -158,7 +158,7 @@
 											<label class="col-sm-3 control-label no-padding-right"> 地址 </label>
 
 											<div class="col-sm-9">
-												<input type="text" placeholder="添加提示信息" name="partner.address" class="col-xs-10 col-sm-8" ng-model="new_partner.address">
+												<input type="text" placeholder="添加提示信息" name="partner.address" class="col-xs-10 col-sm-8">
 											</div>
 										</div>
 										<div class="space-4"></div>
@@ -167,7 +167,7 @@
 											<label class="col-sm-3 control-label no-padding-right"> 标识 </label>
 
 											<div class="col-sm-9">
-												<input type="text" placeholder="添加提示信息" name="partner.identifier" class="col-xs-10 col-sm-8" ng-model="new_partner.identifier">
+												<input type="text" placeholder="添加提示信息" name="partner.identifier" class="col-xs-10 col-sm-8">
 											</div>
 										</div>
 										<div class="space-4"></div>
@@ -177,15 +177,15 @@
 
 											<div class="col-sm-5">
 												<label style="padding-top:2px;">
-													<input name="partner.products.mdm" type="checkbox" class="ace" ng-model="new_partner.products.mdm">
+													<input name="partner.products.mdm" type="checkbox" class="ace">
 													<span class="lbl"> MDM </span>
 												</label>
 												<label style="padding-top:2px;">
-													<input name="partner.products.mam" type="checkbox" class="ace" ng-model="new_partner.products.mam">
+													<input name="partner.products.mam" type="checkbox" class="ace">
 													<span class="lbl"> MAM </span>
 												</label>
 												<label style="padding-top:2px;">
-													<input name="partner.products.mcm" type="checkbox" class="ace" ng-model="new_partner.products.mcm">
+													<input name="partner.products.mcm" type="checkbox" class="ace">
 													<span class="lbl"> MCM </span>
 												</label>
 											</div>
@@ -265,10 +265,31 @@ $('#add-partner-modal').wizard().on("finished",function(e,info){
 				}
 			}
 		});
-
 	}
-	
 });
+
+var partner_modal = {
+	add_init: function(){
+		$("#add-partner-modal input[name='partner.name']").val("")
+		$("#add-partner-modal input[name='partner.email']").val("")
+		$("#add-partner-modal input[name='partner.telephone']").val("")
+		$("#add-partner-modal input[name='partner.address']").val("")
+		$("#add-partner-modal input[name='partner.identifier']").val("")
+		$("#add-partner-modal input[name='partner.products.mdm']").attr('checked',false)
+		$("#add-partner-modal input[name='partner.products.mam']").attr('checked',false)
+		$("#add-partner-modal input[name='partner.products.mcm']").attr('checked',false)
+	},
+	edit_init: function(partner){
+		$("#edit-partner-modal input[name='partner.name']").val(partner.name)
+		$("#edit-partner-modal input[name='partner.email']").val(partner.email)
+		$("#edit-partner-modal input[name='partner.telephone']").val(partner.telephone)
+		$("#edit-partner-modal input[name='partner.address']").val(partner.address)
+		$("#edit-partner-modal input[name='partner.identifier']").val(partner.identifier)
+ 		$("#edit-partner-modal input[name='partner.products.mdm']").attr('checked',partner.products.mdm)
+		$("#edit-partner-modal input[name='partner.products.mam']").attr('checked',partner.products.mam)
+		$("#edit-partner-modal input[name='partner.products.mcm']").attr('checked',partner.products.mcm)
+	}
+}
 </script>
 </div>
 
