@@ -1,7 +1,7 @@
 <div class="row" ng-controller="PartnerCtrl">
 	<div class="col-xs-12">
 		<div class="code" id="test-table">
-			<button onclick="partner_modal.add_init()" data-toggle='modal' 
+			<button onclick="customers.partner.modal.add_init()" data-toggle='modal' 
 				data-target='#add-partner-modal' class="btn btn-info" style="float: right;margin: 0 10px 10px 0;">
 				<i class="icon-cloud-upload bigger-100"></i>添加合作商
 			</button>
@@ -199,7 +199,59 @@
 					<div class="step-pane" id="partner-modal-step2">
 						<div class="center">
 							<h4 class="blue">添加合作商管理员</h4>
-							
+							<div class="col-xs-12">
+								<form id="add-partner-form" class="form-horizontal" role="form" action="/customers/user" method="post">
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right"> 登录名 </label>
+										<div class="col-sm-9">
+											<input type="text" placeholder="必填项"  data-rel="tooltip" data-original-title="Hello" name="user.loginName" class="col-xs-10 col-sm-8">
+										</div>
+									</div>
+									<div class="space-4"></div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right"> 邮箱 </label>
+										<div class="col-sm-9">
+											<input type="text" placeholder="必填项" name="user.email" class="col-xs-10 col-sm-8">
+										</div>
+									</div>
+									<div class="space-4"></div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right"> 用户名 </label>
+										<div class="col-sm-9">
+											<input type="text" placeholder="必填项" name="user.username" class="col-xs-10 col-sm-8">
+										</div>
+									</div>
+									<div class="space-4"></div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right"> 电话 </label>
+										<div class="col-sm-9">
+											<input type="text" placeholder="必填项" name="user.telephone" class="col-xs-10 col-sm-8">
+										</div>
+									</div>
+									<div class="space-4"></div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right"> 状态 </label>
+										<div class="col-sm-4">
+											<label>
+												<input type="radio" class="ace" name="status"  value="1" checked="checked">
+												<span class="lbl"> 激活</span>
+											</label>
+											<label>
+												<input type="radio" class="ace" name="status" value="0">
+												<span class="lbl"> 未激活 </span>
+											</label>
+										</div>
+									</div>
+									<div class="space-4"></div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right"> 描述 </label>
+										<div class="col-sm-7">
+											<textarea placeholder="描述信息" id="form-field-6" class="form-control" name="user.description"></textarea>
+										</div>
+									</div>
+									<div class="space-4"></div>
+								</form>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -224,72 +276,45 @@
 		</div>
 	</div>
 </div><!-- PAGE CONTENT ENDS -->
-
-
-<script>
-$('#edit-partner-modal').on('shown.bs.modal', function () {
-	$(this).find('.chosen-container').each(function(){
-		$(this).find('a:first-child').css('width' , '410px');
-	});
-})
-
-
-/*初始化表单*/
-$('#add-partner-form').ajaxForm(function() {
-    alert("Thank you for your comment!");
-});
-
-$('#edit-partner-form').ajaxForm(function() {
-    alert("Thank you for your comment!");
-});
-
-
-/*初始化添加合作商对话框*/
-$('#add-partner-modal').wizard().on("finished",function(e,info){
-	$('#add-partner-form').submit();
-	//TO DO: ajax submit.
-	$('#add-partner-modal').modal('hide');// ajax success close dialog.
-}).on("shown.bs.modal",function(e){
-	$('#add-partner-modal').wizard("previous");//init step 1
-}).on("change",function(e){
-	if($("#add-partner-modal input[name='partner.name']").val() === ""){
-		//$(this).closest('form').validate().element($(this));
-		e.preventDefault();
-		bootbox.dialog({
-			message: "合作商名称不能为空！", 
-			title: "信息不完整！",
-			buttons: {
-				"success" : {
-					"label" : "确定",
-					"className" : "btn-sm btn-primary"
-				}
-			}
+<div>
+<script type="text/javascript" language="javascript">
+	$(function(){
+		$('#edit-partner-modal').on('shown.bs.modal', function () {
+			$(this).find('.chosen-container').each(function(){
+				$(this).find('a:first-child').css('width' , '410px');
+			});
+		})
+		/*初始化表单*/
+		$('#add-partner-form').ajaxForm(function() {
+		    alert("Thank you for your comment!");
 		});
-	}
-});
 
-var partner_modal = {
-	add_init: function(){
-		$("#add-partner-modal input[name='partner.name']").val("")
-		$("#add-partner-modal input[name='partner.email']").val("")
-		$("#add-partner-modal input[name='partner.telephone']").val("")
-		$("#add-partner-modal input[name='partner.address']").val("")
-		$("#add-partner-modal input[name='partner.identifier']").val("")
-		$("#add-partner-modal input[name='partner.products.mdm']").attr('checked',false)
-		$("#add-partner-modal input[name='partner.products.mam']").attr('checked',false)
-		$("#add-partner-modal input[name='partner.products.mcm']").attr('checked',false)
-	},
-	edit_init: function(partner){
-		$("#edit-partner-modal input[name='partner.name']").val(partner.name)
-		$("#edit-partner-modal input[name='partner.email']").val(partner.email)
-		$("#edit-partner-modal input[name='partner.telephone']").val(partner.telephone)
-		$("#edit-partner-modal input[name='partner.address']").val(partner.address)
-		$("#edit-partner-modal input[name='partner.identifier']").val(partner.identifier)
- 		$("#edit-partner-modal input[name='partner.products.mdm']").attr('checked',partner.products.mdm)
-		$("#edit-partner-modal input[name='partner.products.mam']").attr('checked',partner.products.mam)
-		$("#edit-partner-modal input[name='partner.products.mcm']").attr('checked',partner.products.mcm)
-	}
-}
+		$('#edit-partner-form').ajaxForm(function() {
+		    alert("Thank you for your comment!");
+		});
+		/*初始化添加合作商对话框*/
+		$('#add-partner-modal').wizard().on("finished",function(e,info){
+			$('#add-partner-form').submit();
+			//TO DO: ajax submit.
+			$('#add-partner-modal').modal('hide');// ajax success close dialog.
+		}).on("shown.bs.modal",function(e){
+			$('#add-partner-modal').wizard("previous");//init step 1
+		}).on("change",function(e){
+			// if($("#add-partner-modal input[name='partner.name']").val() === ""){
+			// 	//$(this).closest('form').validate().element($(this));
+			// 	e.preventDefault();
+			// 	bootbox.dialog({
+			// 		message: "合作商名称不能为空！", 
+			// 		title: "信息不完整！",
+			// 		buttons: {
+			// 			"success" : {
+			// 				"label" : "确定",
+			// 				"className" : "btn-sm btn-primary"
+			// 			}
+			// 		}
+			// 	});
+			// }
+		});
+	});
 </script>
 </div>
-
